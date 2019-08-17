@@ -14,7 +14,7 @@ const Listener = require('./listener')
 const Message = require('./message')
 const Middleware = require('./middleware')
 
-const HUBOT_DEFAULT_ADAPTERS = ['campfire', 'shell']
+const HUBOT_DEFAULT_ADAPTERS = ['campfire', 'shell', 'botbot']
 const HUBOT_DOCUMENTATION_SECTIONS = ['description', 'dependencies', 'configuration', 'commands', 'notes', 'author', 'authors', 'examples', 'tags', 'urls']
 
 class Robot {
