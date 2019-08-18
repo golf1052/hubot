@@ -117,6 +117,7 @@ function loadScripts () {
 
   loadHubotScripts()
   loadExternalScripts()
+  loadBotbotScripts();
 
   options.scripts.forEach((scriptPath) => {
     if (scriptPath[0] === '/') {
@@ -208,6 +209,31 @@ function loadExternalScripts () {
     } catch (error) {
       console.error(`Error parsing JSON data from external-scripts.json: ${error}`)
       process.exit(1)
+    }
+  })
+}
+
+function loadBotbotScripts() {
+  const externalScripts = pathResolve('..', 'hubot-scripts', 'scripts.json');
+  if (!fs.existsSync(externalScripts)) {
+    return;
+  }
+
+  fs.readFile(externalScripts, function(error, data) {
+    if (error) {
+      throw error;
+    }
+
+    let packages = JSON.parse(data);
+
+    try {
+      packages.forEach(pkg => {
+        const scriptPath = pathResolve('..', 'hubot-scripts', pkg);
+        robot.loadBotbotScript(scriptPath, pkg);
+      });
+    } catch (error) {
+      console.error(`Error parsing JSON data from hubot-scripts/scripts.json: ${error}`);
+      process.exit(1);
     }
   })
 }

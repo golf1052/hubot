@@ -416,6 +416,15 @@ class Robot {
     }
   }
 
+  loadBotbotScript(path, pkg) {
+    this.logger.debug(`Loading package from path. Package: ${pkg}\nPath: ${path}`);
+    try {
+      require(path)(this);
+    } catch (error) {
+      this.logger.error(`Error loading script - ${error.stack}`);
+    }
+  }
+
   // Setup the Express server's defaults.
   //
   // Returns nothing.

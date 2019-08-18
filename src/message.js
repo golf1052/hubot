@@ -47,6 +47,17 @@ class TextMessage extends Message {
   }
 }
 
+class SlackMessage extends TextMessage {
+  constructor(message) {
+    super(message.user, message.text, '');
+    for (let attr in message) {
+      if (attr != 'user' && attr != 'text') {
+        this[attr] = message[attr];
+      }
+    }
+  }
+}
+
 // Represents an incoming user entrance notification.
 //
 // user - A User instance for the user who entered.
@@ -81,6 +92,7 @@ class CatchAllMessage extends Message {
 module.exports = {
   Message,
   TextMessage,
+  SlackMessage,
   EnterMessage,
   LeaveMessage,
   TopicMessage,
